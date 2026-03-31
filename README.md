@@ -12,6 +12,23 @@
 
 ---
 
+## Usage Styles
+
+Neu supports multiple coding styles:
+
+### 1. Runtime Style (Recommended)
+Deterministic, loop-driven execution using `neu.on("tick")`.
+
+### 2. Imperative Style
+Direct DOM manipulation with full control.
+
+### 3. Modern Style (Optional)
+Structured UI patterns similar to React-style writing.
+
+> All styles run on the same deterministic runtime.
+
+---
+
 ## Router (Auto Import)
 
 Neu router is automatically initialized by the runtime.
