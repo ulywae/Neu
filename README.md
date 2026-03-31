@@ -12,6 +12,22 @@
 
 ---
 
+## Router (Auto Import)
+
+Neu router is automatically initialized by the runtime.
+
+No manual import or setup is required.
+
+```js
+neu.configRouter({
+  root: "welcome"
+});
+```
+
+> Just configure and start. The router is already available.
+
+---
+
 ## 10-Second Example
 
 ```js
