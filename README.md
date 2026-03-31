@@ -40,6 +40,74 @@ This ensures:
 
 ---
 
+### 🧩 DOM Layering
+
+Neu organizes the DOM into multiple controlled layers:
+
+- `scope` → active page content
+- `global` → persistent UI (shared across pages)
+- `globalOutScope` → top-level system layer
+
+This allows:
+- clean page transitions
+- persistent UI without re-render
+- full separation of concerns
+
+Neu provides multiple DOM access layers for precise control.
+
+### 1. Scoped DOM (`dom`)
+Access elements only inside the active page or slot.
+
+```js
+dom.on("btn-start", "click", () => {});
+dom.addClass("status", "active");
+
+const $items = dom.getQ(".item");
+$items.css("color", "red");
+```
+
+> Safe, isolated, no cross-page leakage
+
+### 2. Global DOM ($$.global)
+Access persistent UI elements outside page scope.
+
+```js
+$$.global(".nav-item").on("click", (e) => {
+  neu.navigate(e.target.dataset.target);
+});
+
+$$.global("body").css("overflow", "hidden");
+```
+
+> Perfect for navbar, overlays, layout
+
+### 3. Global Outside Scope ($$.globalOutsideScope)
+Access global elements excluding the active page
+
+```js
+const $el = $$.globalOutsideScope("div");
+$el.css("opacity", "0.5");
+```
+
+> Useful for background effects, dimming, isolation
+
+
+### 4. Dynamic Creation
+
+```js
+const $el = $$.create("div", {
+  class: "alert-box",
+  style: { color: "yellow" }
+});
+
+$el.text("Ready!");
+dom.appendHtml("target", $el.el[0].outerHTML);
+```
+
+> Controlled DOM creation via Neu API
+
+---
+
 ## ⚡ Quick Start
 
 ```bash
