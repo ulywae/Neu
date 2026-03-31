@@ -1,8 +1,8 @@
 # 🚀 Neu — Deterministic SPA Engine (Vanilla JS + Capacitor)
 
-**Neu** is a **deterministic runtime-driven SPA engine** designed for building high-performance Android/iOS applications using **Vanilla JavaScript**.
+**Neu** is a **deterministic runtime-driven SPA engine** for building high-performance Android/iOS applications using **Vanilla JavaScript**.
 
-Unlike traditional frameworks, Neu gives you **full control over the runtime lifecycle**, not just the UI.
+Unlike traditional frameworks, Neu gives you **full control over runtime behavior**, not just UI rendering.
 
 > No virtual DOM
 > No reactive overhead
@@ -12,11 +12,11 @@ Unlike traditional frameworks, Neu gives you **full control over the runtime lif
 
 ## 🧠 Core Concept
 
-Neu treats the DOM as a **render target**, not as the source of truth.
+Neu treats the DOM as a **render target**, not the source of truth.
 
-Every page transition is fully controlled by the engine:
+Every page transition is fully controlled:
 
-```
+```text
 [Old Page]
    ↓ transition out
 [Cleanup]
@@ -28,116 +28,96 @@ Every page transition is fully controlled by the engine:
 
 This ensures:
 
-* Clean DOM (no memory leaks)
+* Clean DOM (no leaks)
 * Smooth transitions
-* Predictable execution flow
+* Predictable execution
 * Stable performance (60 FPS)
-
----
-
-## ⚡ Why Neu?
-
-Most modern frameworks rely on abstraction layers:
-
-| Framework | Approach                 |
-| :-------- | :----------------------- |
-| React     | Virtual DOM diffing      |
-| Vue       | Reactive watchers        |
-| Angular   | Complex lifecycle system |
-
-Neu takes a different path:
-
-* Direct runtime control
-* Deterministic execution
-* Manual lifecycle management
-
-👉 Built for developers who want **precision, control, and performance**
-
----
-
-## 🛠️ Tech Stack (Pinned for Stability)
-
-| Component  | Version | Note                 |
-| :--------- | :------ | :------------------- |
-| Node.js    | v20.x   | LTS recommended      |
-| Java (JDK) | 17      | Required for Android |
-| Vite       | 7.2.4   | Fast bundler         |
-| Capacitor  | 7.4.5   | Native bridge        |
-| Gradle     | 8.10.2  | Locked via wrapper   |
 
 ---
 
 ## ⚡ Quick Start
 
-### 1. Prerequisites
+```bash
+npm install
+npm run dev
+```
 
-Make sure you have:
-
-* Node.js v20+
-* Java JDK 17
-* Android Studio
-
----
-
-### 2. Neu Installer
-
-1. Download Neu Installer (.exe) from Releases
-2. Run inside your project folder
-3. Follow setup instructions
-
-The installer will:
-
-* Generate project structure
-* Lock dependency versions
-* Configure path aliases (`@app`, `@pages`)
-* Setup Android environment
-
----
-
-## 📂 Project Structure
+Open:
 
 ```
-src/
-├── app/
-│   ├── modules/     # Business logic
-│   └── style/       # Global styling
-├── pages/           # Page controllers & views
-├── plugins/         # Capacitor integrations
-├── slots/           # Reusable UI components
-└── main.js          # Entry point
+http://localhost:5173
+```
+
+👉 Click between pages to see Neu in action.
+
+---
+
+## 🎬 Built-in Demo
+
+Neu already includes a working sample inside the project.
+
+### Try this:
+
+* Navigate between pages
+* Observe smooth transitions
+* Inspect DOM (no leftover elements)
+
+### Demo source:
+
+```
+src/pages/
 ```
 
 ---
 
-## 🚀 Development Workflow
-
-| Command         | Description                 |
-| :-------------- | :-------------------------- |
-| npm run dev     | Run web development server  |
-| npm run neu     | Sync to Android             |
-| npm run sdk     | Build + open Android Studio |
-| npm run preview | Preview production build    |
-
----
-
-## 🧩 Core Usage
+## 🧩 Basic Usage
 
 ### Inject Page
 
 ```js
-engine.inject("home")
+engine auto inject in folder page or pages
 ```
-
-What happens internally:
-
-1. Current page runs transition out
-2. Engine cleans DOM safely
-3. New page is injected (hidden)
-4. Transition in begins
 
 ---
 
-### Page Lifecycle (Conceptual)
+## 📄 Minimal Page Example
+
+```js
+import welcomeHTML from "./welcome.html?raw";
+
+export default function WelcomePage() {
+  const el = document.createElement("div");
+  el.setAttribute("data-page", "welcome");
+  el.innerHTML = welcomeHTML;
+
+  function bindEvents() {
+    const btn = el.querySelector("#go");
+
+    if (btn) {
+      btn.onclick = () => {
+        engine.inject("home");
+      };
+    }
+  }
+
+  return {
+    name: "welcome",
+    el,
+
+    onInit() {
+      bindEvents();
+    },
+
+    onDestroy() {
+      // cleanup logic here if needed
+    }
+  };
+}
+```
+
+---
+
+## 🧩 Lifecycle Model
 
 Each page follows a controlled lifecycle:
 
@@ -145,82 +125,88 @@ Each page follows a controlled lifecycle:
 init → mount → active → destroy
 ```
 
-No hidden lifecycle. Everything is predictable.
+No hidden behavior. Everything is explicit.
 
 ---
 
-### Slot System
+## 🧩 Slot System
 
-Neu provides a **slot system** for persistent or reusable logic:
-
-Types of slots:
+Neu provides a flexible slot system:
 
 * `normal` → standard lifecycle
 * `keep` → persistent across pages
 * `once` → run once
 * `destroy` → auto cleanup
 
-Use slots for:
+Use cases:
 
-* background tasks
+* background services
 * global UI (navbar, overlay)
-* timers / services
+* timers / schedulers
 
 ---
 
-### Runtime Loop
+## ⚙️ Runtime Engine
 
-Neu runs on a **deterministic engine loop**:
-
-* Synced execution
-* Stable timing
-* No random async chaos
-
-Example concept:
+Neu runs on a deterministic loop:
 
 ```js
 engine.onTick((dt) => {
-  // your logic here
+  // synchronized logic
 })
 ```
+
+* Stable timing
+* No random async behavior
+* Predictable updates
 
 ---
 
 ## ✨ Key Features
 
-* 🔥 Deterministic Runtime Engine
-* ⚡ 60 FPS Stable Execution
-* 🧼 Clean DOM Injection System
-* 🧠 Full Lifecycle Control
-* 🧩 Slot-based Architecture
-* 🚫 No Virtual DOM / Reactivity Overhead
-* 📦 Ultra Lightweight Output
-* 📱 Native-ready (via Capacitor)
+* 🔥 Deterministic runtime engine
+* ⚡ Stable 60 FPS execution
+* 🧼 Clean DOM lifecycle
+* 🧠 Full lifecycle control
+* 🧩 Slot-based architecture
+* 🚫 No virtual DOM / reactivity
+* 📦 Lightweight output
+* 📱 Native-ready (Capacitor)
 
 ---
 
-## 🧪 Performance Philosophy
+## 🛠️ Tech Stack (Pinned)
 
-Neu is designed to:
-
-* Minimize CPU spikes
-* Keep memory stable
-* Avoid hidden re-renders
-* Eliminate DOM leaks
-
-👉 Result: predictable, smooth applications even on low-end devices
+| Component  | Version |
+| :--------- | :------ |
+| Node.js    | v20.x   |
+| Java (JDK) | 17      |
+| Vite       | 7.2.4   |
+| Capacitor  | 7.4.5   |
+| Gradle     | 8.10.2  |
 
 ---
 
-## 🧠 Philosophy
+## 🚀 Development Commands
 
-Neu is **not trying to replace React or Vue**.
+| Command         | Description                 |
+| :-------------- | :-------------------------- |
+| npm run dev     | Web development             |
+| npm run neu     | Sync to Android             |
+| npm run sdk     | Build + open Android Studio |
+| npm run preview | Preview production          |
 
-It exists for developers who want:
+---
 
-> Full control over runtime behavior
-> Deterministic execution
-> Minimal abstraction
+## 🧪 Philosophy
+
+Neu is not trying to replace React or Vue.
+
+It is designed for developers who want:
+
+* Full runtime control
+* Deterministic behavior
+* Minimal abstraction
 
 ---
 
@@ -228,24 +214,22 @@ It exists for developers who want:
 
 Use Neu if you need:
 
-* High-performance mobile apps
+* High-performance apps
 * Full lifecycle control
-* Custom rendering logic
 * Lightweight architecture
 
-Avoid Neu if you want:
+Avoid Neu if you prefer:
 
-* Plug-and-play ecosystem
-* Large community libraries
-* High-level abstractions
+* heavy abstraction
+* large plugin ecosystems
 
 ---
 
 ## 🤝 Contribution
 
-Contributions are welcome!
+Contributions are welcome:
 
-* Open issues for bugs or ideas
+* Open issues
 * Submit pull requests
 * Share feedback
 
@@ -259,7 +243,5 @@ Contributions are welcome!
 ---
 
 ## ⭐ Final Note
-
-Neu is built with a simple principle:
 
 > Control the runtime, and everything becomes predictable.
