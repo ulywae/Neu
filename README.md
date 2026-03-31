@@ -1,110 +1,70 @@
-# 🚀 Neu — Deterministic SPA Engine (Vanilla JS + Capacitor)
+# 🚀 Neu — Deterministic UI Runtime Engine
 
 **Neu** is a **deterministic runtime-driven SPA engine** for building high-performance Android/iOS applications using **Vanilla JavaScript**.
 
-Unlike traditional frameworks, Neu gives you **full control over runtime behavior**, not just UI rendering.
-
-You can write in a modern style (React/Vue-like patterns),
-but the execution remains **deterministic and fully controlled**.
-
-> No virtual DOM  
-> No reactive overhead  
-> Predictable lifecycle
-> No magic
-> Just control
+> Not a framework.
+> Not a virtual DOM.
+> Not reactive magic.
+>
+> **Neu is a runtime.**
 
 ---
 
-## 🧠 Core Concept
+## ⚡ Core Idea
 
 Neu treats the DOM as a **render target**, not the source of truth.
 
-Every page transition is fully controlled:
-
 ```text
-[Old Page]
-   ↓ transition out
-[Cleanup]
-   ↓
-[New Page (pre-injected, hidden)]
-   ↓
-[Transition In]
+Control flows downward:
+
+Engine → Runtime → Pages / Slots → DOM
 ```
 
-This ensures:
-
-* Clean DOM (no leaks)
-* Smooth transitions
-* Predictable execution
-* Stable performance (60 FPS)
+> The runtime controls everything.
+> The DOM only reflects it.
 
 ---
 
-### 🧩 DOM Layering
+## 🏗️ Architecture
 
-Neu organizes the DOM into multiple controlled layers:
-
-- `scope` → active page content
-- `global` → persistent UI (shared across pages)
-- `globalOutScope` → top-level system layer
-
-This allows:
-- clean page transitions
-- persistent UI without re-render
-- full separation of concerns
-
-Neu provides multiple DOM access layers for precise control.
-
-### 1. Scoped DOM (`dom`)
-Access elements only inside the active page or slot.
-
-```js
-dom.on("btn-start", "click", () => {});
-dom.addClass("status", "active");
-
-const $items = dom.getQ(".item");
-$items.css("color", "red");
+```text
+          ┌──────────────────────┐
+          │     Engine Loop      │
+          │   (deterministic)    │
+          └─────────┬────────────┘
+                    │
+        ┌───────────▼───────────┐
+        │     Runtime Core      │
+        │  (lifecycle control)  │
+        └───────┬─────┬─────────┘
+                │     │
+        ┌───────▼─┐ ┌─▼────────┐
+        │  Pages  │ │  Slots   │
+        │ (inject)│ │(persistent)
+        └───────┬─┘ └────┬─────┘
+                │         │
+                └────┬────┘
+                     ▼
+        ┌─────────────────────────┐
+        │        DOM Layer        │
+        │                         │
+        │  [ globalOutScope ]     │
+        │  [    global      ]     │
+        │  [     scope      ]     │
+        │                         │
+        └─────────────────────────┘
 ```
 
-> Safe, isolated, no cross-page leakage
+---
 
-### 2. Global DOM ($$.global)
-Access persistent UI elements outside page scope.
+## 🧠 Philosophy
 
-```js
-$$.global(".nav-item").on("click", (e) => {
-  neu.navigate(e.target.dataset.target);
-});
+* No virtual DOM
+* No reactive overhead
+* No hidden lifecycle
+* No unpredictable async
 
-$$.global("body").css("overflow", "hidden");
-```
-
-> Perfect for navbar, overlays, layout
-
-### 3. Global Outside Scope ($$.globalOutsideScope)
-Access global elements excluding the active page
-
-```js
-const $el = $$.globalOutsideScope("div");
-$el.css("opacity", "0.5");
-```
-
-> Useful for background effects, dimming, isolation
-
-
-### 4. Dynamic Creation
-
-```js
-const $el = $$.create("div", {
-  class: "alert-box",
-  style: { color: "yellow" }
-});
-
-$el.text("Ready!");
-dom.appendHtml("target", $el.el[0].outerHTML);
-```
-
-> Controlled DOM creation via Neu API
+> Control the runtime, and everything becomes predictable.
 
 ---
 
@@ -121,114 +81,120 @@ Open:
 http://localhost:5173
 ```
 
-👉 Click between pages to see Neu in action.
-
 ---
 
-## 🎬 Built-in Demo
-
-Neu already includes a working sample inside the project.
-
-### Try this:
-
-* Navigate between pages
-* Observe smooth transitions
-* Inspect DOM (no leftover elements)
-
-### Demo source:
-
-```
-src/pages/
-```
-
----
-
-## 🧩 Basic Usage
-
-### Inject Page
-
-Neu automatically resolves pages from the `src/pages/` or `src/page/` directory.
+## 🧪 Minimal App Example
 
 ```js
-engine.inject("welcome")
+import neu from "./app/neu.js";
+
+neu.ready(async () => {
+  neu.configRouter({
+    root: "welcome",
+    biosStyle: true,
+    loaderStyle: 1
+  });
+
+  await neu.injectPage();
+  await neu.routerStart();
+
+  neu.loop.start();
+
+  neu.debug.set(true);
+  neu.debug.log("System Started!");
+
+  // Deterministic loop
+  neu.on("tick", (dt) => {}, { page: "global" });
+
+  // Scheduled task
+  neu.loop.schedule("repeatTask", async () => {}, 5000);
+});
 ```
-
-Neu will automatically:
-
-- Resolve the page from `src/pages/`
-- Initialize lifecycle
-- Handle transitions
-- Clean previous DOM
-
-👉 No manual routing. No configuration.
-
-> This is not a router — it's a controlled runtime injection system.
 
 ---
 
-## 📄 Minimal Page Example
+## 🔄 Lifecycle Model
+
+```text
+[Old Page]
+  ↓ pageBeforeOut
+  ↓ pageUnmount
+  ↓ pageDestroy
+
+[New Page]
+  ↓ pageMount
+  ↓ pageInit
+  ↓ pageAfterIn
+```
+
+> Full lifecycle control. No hidden behavior.
+
+---
+
+## 🧩 DOM Access Layers
+
+Neu provides **multi-layer DOM control**:
+
+### 1. Scoped DOM (`dom`)
+
+Access only inside active page/slot.
 
 ```js
-import welcomeHTML from "./welcome.html?raw";
-
-export default function WelcomePage() {
-  const el = document.createElement("div");
-  el.setAttribute("data-page", "welcome");
-  el.innerHTML = welcomeHTML;
-
-  function bindEvents() {
-    const btn = el.querySelector("#go");
-
-    if (btn) {
-      btn.onclick = () => {
-        engine.inject("home");
-      };
-    }
-  }
-
-  return {
-    name: "welcome",
-    el,
-
-    onInit() {
-      bindEvents();
-    },
-
-    onDestroy() {
-      // cleanup logic here if needed
-    }
-  };
-}
+dom.on("btn", "click", () => {});
+dom.addClass("status", "active");
 ```
 
 ---
 
-## 🧩 Lifecycle Model
+### 2. Global DOM (`$$.global`)
 
-Each page follows a controlled lifecycle:
+Persistent UI layer (navbar, overlay, layout).
 
+```js
+$$.global(".nav-item").on("click", (e) => {
+  neu.navigate(e.target.dataset.target);
+});
 ```
-init → mount → active → destroy
+
+---
+
+### 3. Global Outside Scope (`$$.globalOutsideScope`)
+
+Global elements excluding active page.
+
+```js
+$$.globalOutsideScope("div").css("opacity", "0.5");
 ```
 
-No hidden behavior. Everything is explicit.
+---
+
+### 4. Dynamic Creation
+
+```js
+const el = $$.create("div", { class: "alert-box" });
+el.text("Ready!");
+dom.appendHtml("target", el.el[0].outerHTML);
+```
 
 ---
 
 ## 🧩 Slot System
 
-Neu provides a flexible slot system:
+Neu supports flexible runtime slots:
 
-* `normal` → standard lifecycle
-* `keep` → persistent across pages
-* `once` → run once
-* `destroy` → auto cleanup
+| Type    | Behavior                |
+| ------- | ----------------------- |
+| normal  | standard lifecycle      |
+| keep    | persistent across pages |
+| once    | run once                |
+| destroy | auto cleanup            |
 
 Use cases:
 
 * background services
-* global UI (navbar, overlay)
-* timers / schedulers
+* global UI
+* schedulers
+* overlays
 
 ---
 
@@ -237,62 +203,77 @@ Use cases:
 Neu runs on a deterministic loop:
 
 ```js
-engine.onTick((dt) => {
-  // synchronized logic
-})
+neu.on("tick", (dt) => {
+  // synchronized updates
+});
 ```
 
-* Stable timing
-* No random async behavior
-* Predictable updates
+* stable timing
+* no random async
+* predictable execution
 
 ---
 
-## ✨ Key Features
+## 🖥️ BIOS Style Mode
 
-- Deterministic runtime engine
-- Stable 60 FPS execution
-- Clean DOM lifecycle
-- Full lifecycle control
-- Slot-based architecture
-- No virtual DOM / reactivity
-- Lightweight output
-- Native-ready (Capacitor)
+```js
+neu.configRouter({
+  biosStyle: true
+});
+```
+
+### Effects:
+
+* step-based rendering
+* controlled transitions
+* system-like UI flow
+
+> Not a theme — a different execution style.
 
 ---
 
-## 🛠️ Tech Stack (Pinned)
+## 🧪 Debug Console
+
+Neu includes a built-in **floating debug console**.
+
+```js
+neu.debug.set(true);
+neu.debug.log("Hello Neu");
+```
+
+### Features:
+
+* floating overlay
+* draggable UI
+* real-time logs
+* works on mobile
+
+> Debug your app where it actually runs.
+
+---
+
+## 🚀 Key Features
+
+* Deterministic runtime engine
+* Stable 60 FPS loop
+* Full lifecycle control
+* Slot-based architecture
+* Clean DOM management
+* BIOS-style rendering mode
+* Loader selection mode
+* Floating debug console
+* Native-ready (Capacitor)
+
+---
+
+## 🛠️ Tech Stack
 
 | Component  | Version |
-| :--------- | :------ |
+| ---------- | ------- |
 | Node.js    | v20.x   |
+| Vite       | 7.x     |
+| Capacitor  | 7.x     |
 | Java (JDK) | 17      |
-| Vite       | 7.2.4   |
-| Capacitor  | 7.4.5   |
-| Gradle     | 8.10.2  |
-
----
-
-## 🚀 Development Commands
-
-| Command         | Description                 |
-| :-------------- | :-------------------------- |
-| npm run dev     | Web development             |
-| npm run neu     | Sync to Android             |
-| npm run sdk     | Build + open Android Studio |
-| npm run preview | Preview production          |
-
----
-
-## 🧪 Philosophy
-
-Neu is not trying to replace React or Vue.
-
-It is designed for developers who want:
-
-* Full runtime control
-* Deterministic behavior
-* Minimal abstraction
 
 ---
 
@@ -300,24 +281,24 @@ It is designed for developers who want:
 
 Use Neu if you need:
 
-* High-performance apps
-* Full lifecycle control
-* Lightweight architecture
+* high performance apps
+* deterministic behavior
+* full runtime control
+* minimal abstraction
 
 Avoid Neu if you prefer:
 
-* heavy abstraction
-* large plugin ecosystems
+* heavy frameworks
+* reactive patterns
+* large ecosystems
 
 ---
 
 ## 🤝 Contribution
 
-Contributions are welcome:
-
-* Open issues
-* Submit pull requests
-* Share feedback
+* open issues
+* submit PRs
+* share feedback
 
 ---
 
@@ -330,4 +311,4 @@ Contributions are welcome:
 
 ## ⭐ Final Note
 
-> Control the runtime, and everything becomes predictable.
+> Neu runs like a system — not just an app.
