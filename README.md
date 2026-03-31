@@ -74,9 +74,20 @@ src/pages/
 
 ### Inject Page
 
+Neu automatically resolves pages from the `pages/` directory.
+
 ```js
-engine auto inject in folder page or pages
+engine.inject("welcome")
 ```
+
+Neu will automatically:
+
+Resolve the page from src/pages/
+Initialize lifecycle
+Handle transitions
+Clean previous DOM
+
+👉 No manual routing. No configuration.
 
 ---
 
