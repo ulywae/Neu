@@ -4,9 +4,14 @@
 
 Unlike traditional frameworks, Neu gives you **full control over runtime behavior**, not just UI rendering.
 
-> No virtual DOM
-> No reactive overhead
-> No unpredictable lifecycle
+You can write in a modern style (React/Vue-like patterns),
+but the execution remains **deterministic and fully controlled**.
+
+> No virtual DOM  
+> No reactive overhead  
+> Predictable lifecycle
+> No magic
+> Just control
 
 ---
 
@@ -74,7 +79,7 @@ src/pages/
 
 ### Inject Page
 
-Neu automatically resolves pages from the `pages/` directory.
+Neu automatically resolves pages from the `src/pages/` or `src/page/` directory.
 
 ```js
 engine.inject("welcome")
@@ -82,12 +87,14 @@ engine.inject("welcome")
 
 Neu will automatically:
 
-Resolve the page from src/pages/
-Initialize lifecycle
-Handle transitions
-Clean previous DOM
+- Resolve the page from `src/pages/`
+- Initialize lifecycle
+- Handle transitions
+- Clean previous DOM
 
 👉 No manual routing. No configuration.
+
+> This is not a router — it's a controlled runtime injection system.
 
 ---
 
@@ -175,14 +182,14 @@ engine.onTick((dt) => {
 
 ## ✨ Key Features
 
-* 🔥 Deterministic runtime engine
-* ⚡ Stable 60 FPS execution
-* 🧼 Clean DOM lifecycle
-* 🧠 Full lifecycle control
-* 🧩 Slot-based architecture
-* 🚫 No virtual DOM / reactivity
-* 📦 Lightweight output
-* 📱 Native-ready (Capacitor)
+- Deterministic runtime engine
+- Stable 60 FPS execution
+- Clean DOM lifecycle
+- Full lifecycle control
+- Slot-based architecture
+- No virtual DOM / reactivity
+- Lightweight output
+- Native-ready (Capacitor)
 
 ---
 
