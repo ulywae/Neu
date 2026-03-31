@@ -1,0 +1,323 @@
+﻿:root {
+  --neu-theme-color: #4caf50; /* hijau sebagai warna tema */
+  --neu-app-bg-color: #f9f9f9; /* background app */
+  --neu-text-color: #333; /* warna teks */
+  --neu-navbar-bg-color: #ffffff; /* navbar putih */
+  --neu-font-size: 16px; /* font dasar */
+}
+
+html,
+body {
+  margin: 0;
+  font-family: "Segoe UI", Roboto, "Helvetica Neue", monospace;
+  /* background: #f5f5f5; */
+  color: var(--neu-text-color, #000);
+}
+body.lock-scroll {
+  overflow: hidden;
+}
+
+#app {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.page {
+  /* padding: 2rem;
+  text-align: center; */
+  max-width: 1024px;
+  margin: auto;
+}
+
+/* debugConsole.css */
+#debugConsole {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 300px;
+  height: 200px;
+  background: #1e1e1e;
+  color: #fff;
+  font-family: monospace;
+  font-size: 13px;
+  border: 1px solid #333;
+  z-index: 9999;
+  display: block;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  border-radius: 4px;
+  overflow: hidden;
+  flex-direction: column;
+
+  transition: height 0.2s ease, width 0.2s ease; /* animasi toggle */
+}
+
+#debugConsole .debug-toolbar {
+  position: sticky; /* atau 'fixed' jika ingin tetap di layar saat scroll */
+  top: 0;
+  background-color: #1f1f1f;
+  z-index: 999; /* pastikan di atas konten lain */
+  display: flex;
+  gap: 10px; /* jarak antar tombol, opsional */
+  padding: 5px; /* padding agar nyaman dilihat */
+  border-bottom: 1px solid #535353; /* garis bawah agar terlihat jelas */
+}
+
+#debugConsole .debug-close {
+  margin-left: auto; /* otomatis push ke kanan */
+  background: #c33;
+  color: #fff;
+  border: none;
+  border-radius: 2px;
+  padding: 0 5px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+#debugConsole .debug-close:hover {
+  background: #f55;
+}
+
+#debugConsole button {
+  font-size: 12px;
+  background: #555;
+  color: #fff;
+  border: none;
+  padding: 2px 5px;
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+#debugConsole button:hover {
+  background: #777;
+}
+
+#debugConsole .debug-log {
+  padding: 2px; /* dikurangi supaya lebih rapat */
+  max-height: 100%;
+  overflow-y: auto;
+  line-height: 1.2; /* rapatkan baris */
+  flex: 1;
+  position: relative; /* penting agar sticky/absolute anak bekerja */
+}
+
+.debug-log p {
+  margin: 0 0 1px 0;
+}
+
+.debug-log .debug-info {
+  color: #0f0;
+}
+.debug-log .debug-warn {
+  color: #ff0;
+}
+.debug-log .debug-error {
+  color: #f33;
+}
+.debug-log .debug-log {
+  color: #fff;
+}
+
+/* Label CPU di toolbar */
+#debugConsole .debug-cpu {
+  margin-left: 10px; /* jarak dari tombol Clear */
+  color: #0f0; /* hijau neon */
+  font-size: 12px; /* agak kecil tapi terbaca */
+  font-family: monospace; /* konsisten dengan log */
+  line-height: 1.2;
+  user-select: none; /* biar gak bisa diseleksi */
+}
+
+#debugConsole.minimized {
+  /* height: auto;  */
+  height: 40px;
+  /* overflow: visible; */
+  overflow: hidden;
+}
+
+#debugConsole.minimized .debug-log {
+  display: none; /* sembunyikan log */
+}
+
+#debugConsole .debug-resize-handle {
+  width: 12px;
+  height: 12px;
+  background: #fa7b04;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  cursor: se-resize;
+  border-top-left-radius: 3px;
+  z-index: 1000;
+}
+
+.debug-spacer {
+  height: 30px;
+  pointer-events: none;
+}
+
+#profile-hud {
+  position: fixed;
+  top: 8px;
+  right: 8px;
+  font-family: monospace;
+  font-size: 13px;
+  background: rgba(0, 0, 0, 0.65);
+  color: rgb(255, 255, 255);
+  padding: 6px 10px;
+  border-radius: 6px;
+  line-height: 1.4;
+  z-index: 9999;
+  pointer-events: none;
+  user-select: none;
+  white-space: pre;
+  box-shadow: rgba(189, 206, 211, 0.3) 0px 0px 6px;
+  border: 1px solid rgba(0, 119, 255, 0.2);
+}
+
+/***************************** 
+  ** BACKGROUND COLOR **
+  *****************************/
+#bg-guard {
+  z-index: -8;
+  background-color: #000;
+}
+#bg-container {
+  z-index: -5;
+}
+#bg-guard,
+#bg-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  overflow: hidden;
+  user-select: none;
+  touch-action: none;
+  cursor: none;
+}
+
+.bg-dark-indigo {
+  background: linear-gradient(
+    to bottom,
+    #5806db,
+    #180144e3,
+    #121213
+  ) !important;
+}
+.bg-dark-blue {
+  background: linear-gradient(
+    to bottom,
+    #0d6efd,
+    #011144e5,
+    #090b0e
+  ) !important;
+}
+.bg-dark-yellow {
+  background: linear-gradient(
+    to bottom,
+    #ce6006,
+    #441f01e5,
+    #121213
+  ) !important;
+}
+.bg-dark-green {
+  background: linear-gradient(
+    to bottom,
+    #02c242,
+    #014401e5,
+    #121213
+  ) !important;
+}
+.bg-dark-red {
+  background: linear-gradient(
+    to bottom,
+    #fb3d18,
+    #884b47e5,
+    #121213
+  ) !important;
+}
+.bg-light-indigo {
+  background: linear-gradient(
+    to bottom,
+    #5806db,
+    #5b4780e3,
+    #cccccf
+  ) !important;
+}
+.bg-light-blue {
+  background: linear-gradient(
+    to bottom,
+    #0d6efd,
+    #485685e5,
+    #cccccf
+  ) !important;
+}
+.bg-light-yellow {
+  background: linear-gradient(
+    to bottom,
+    #ce6006,
+    #664830e5,
+    #cccccf
+  ) !important;
+}
+.bg-light-green {
+  background: linear-gradient(
+    to bottom,
+    #02c242,
+    #205f20e5,
+    #cccccf
+  ) !important;
+}
+.bg-light-red {
+  background: linear-gradient(
+    to bottom,
+    #fb3d18,
+    #632e2ae5,
+    #cccccf
+  ) !important;
+}
+
+.bg-dark {
+  background: linear-gradient(180deg, #000 0%, #020818 60%) !important;
+}
+.bg-light {
+  background-color: #e9e9e9 !important;
+}
+.bg-orange {
+  background-color: #fb3d18 !important;
+}
+.bg-yellow {
+  background-color: #fd7e14 !important;
+}
+.bg-blue {
+  background-color: #0d6efd !important;
+}
+.bg-indigo {
+  background-color: #6610f2 !important;
+}
+.bg-red {
+  background-color: #f50707 !important;
+}
+.bg-green {
+  background-color: #02c242 !important;
+}
+.bg-overlay {
+  position: relative;
+  z-index: 1;
+}
+.bg-overlay::after {
+  position: absolute;
+  content: "";
+  background-color: #030303bd;
+  opacity: 0.63;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+}
+/* ================= BASE ================= */

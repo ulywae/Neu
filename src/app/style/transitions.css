@@ -1,0 +1,327 @@
+﻿/* ✨ Base transition setup */
+/* ================== BASE ================== */
+[data-page] {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  will-change: opacity, transform, filter;
+  transition-property: opacity, transform, filter;
+  transition-duration: 0.4s;
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  backface-visibility: hidden;
+  perspective: 1200px;
+}
+
+/* ================== CLASSIC ================== */
+.page-enter-fade {
+  opacity: 0;
+}
+.page-enter-fade-active {
+  opacity: 1;
+}
+.page-leave-fade {
+  opacity: 1;
+}
+.page-leave-fade-active {
+  opacity: 0;
+}
+
+.page-enter-slide-left {
+  transform: translateX(100%);
+}
+.page-enter-slide-left-active {
+  transform: translateX(0);
+}
+.page-leave-slide-left {
+  transform: translateX(0);
+}
+.page-leave-slide-left-active {
+  transform: translateX(-100%);
+}
+
+.page-enter-slide-right {
+  transform: translateX(-100%);
+}
+.page-enter-slide-right-active {
+  transform: translateX(0);
+}
+.page-leave-slide-right {
+  transform: translateX(0);
+}
+.page-leave-slide-right-active {
+  transform: translateX(100%);
+}
+
+.page-enter-slide-up {
+  transform: translateY(100%);
+}
+.page-enter-slide-up-active {
+  transform: translateY(0);
+}
+.page-leave-slide-up {
+  transform: translateY(0);
+}
+.page-leave-slide-up-active {
+  transform: translateY(-100%);
+}
+
+.page-enter-slide-down {
+  transform: translateY(-100%);
+}
+.page-enter-slide-down-active {
+  transform: translateY(0);
+}
+.page-leave-slide-down {
+  transform: translateY(0);
+}
+.page-leave-slide-down-active {
+  transform: translateY(100%);
+}
+
+.page-enter-scale {
+  opacity: 0;
+  transform: scale(0.8);
+}
+.page-enter-scale-active {
+  opacity: 1;
+  transform: scale(1);
+}
+.page-leave-scale {
+  opacity: 1;
+  transform: scale(1);
+}
+.page-leave-scale-active {
+  opacity: 0;
+  transform: scale(1.1);
+}
+
+/* ================== ADVANCED ================== */
+.page-enter-flip {
+  transform: rotateY(90deg);
+  opacity: 0;
+}
+.page-enter-flip-active {
+  transform: rotateY(0deg);
+  opacity: 1;
+}
+.page-leave-flip {
+  transform: rotateY(0deg);
+  opacity: 1;
+}
+.page-leave-flip-active {
+  transform: rotateY(-90deg);
+  opacity: 0;
+}
+
+.page-enter-zoom {
+  opacity: 0;
+  transform: scale(1.3);
+}
+.page-enter-zoom-active {
+  opacity: 1;
+  transform: scale(1);
+}
+.page-leave-zoom {
+  opacity: 1;
+  transform: scale(1);
+}
+.page-leave-zoom-active {
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+.page-enter-rotate {
+  opacity: 0;
+  transform: rotate(15deg);
+}
+.page-enter-rotate-active {
+  opacity: 1;
+  transform: rotate(0deg);
+}
+.page-leave-rotate {
+  opacity: 1;
+  transform: rotate(0deg);
+}
+.page-leave-rotate-active {
+  opacity: 0;
+  transform: rotate(-15deg);
+}
+
+.page-enter-pop {
+  opacity: 0;
+  transform: scale(0.6);
+}
+.page-enter-pop-active {
+  opacity: 1;
+  transform: scale(1);
+}
+.page-leave-pop {
+  opacity: 1;
+  transform: scale(1);
+}
+.page-leave-pop-active {
+  opacity: 0;
+  transform: scale(1.3);
+}
+
+.page-enter-bounce {
+  opacity: 0;
+  transform: translateY(-50px) scale(0.8);
+}
+.page-enter-bounce-active {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+.page-leave-bounce {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+.page-leave-bounce-active {
+  opacity: 0;
+  transform: translateY(50px) scale(0.8);
+}
+
+.page-enter-spin {
+  opacity: 0;
+  transform: rotate(180deg) scale(0.8);
+}
+.page-enter-spin-active {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+.page-leave-spin {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+.page-leave-spin-active {
+  opacity: 0;
+  transform: rotate(-180deg) scale(0.8);
+}
+
+/* ================== MIXED EFFECTS ================== */
+.page-enter-mix1 {
+  opacity: 0;
+  transform: translateY(50px) rotate(5deg) scale(0.9);
+  filter: blur(2px);
+}
+.page-enter-mix1-active {
+  opacity: 1;
+  transform: translateY(0) rotate(0deg) scale(1);
+  filter: blur(0);
+}
+.page-leave-mix1 {
+  opacity: 1;
+  transform: translateY(0) rotate(0deg) scale(1);
+  filter: blur(0);
+}
+.page-leave-mix1-active {
+  opacity: 0;
+  transform: translateY(-50px) rotate(-5deg) scale(0.9);
+  filter: blur(2px);
+}
+
+.page-enter-mix2 {
+  opacity: 0;
+  transform: translateX(50px) rotateY(10deg) scale(0.9);
+}
+.page-enter-mix2-active {
+  opacity: 1;
+  transform: translateX(0) rotateY(0deg) scale(1);
+}
+.page-leave-mix2 {
+  opacity: 1;
+  transform: translateX(0) rotateY(0deg) scale(1);
+}
+.page-leave-mix2-active {
+  opacity: 0;
+  transform: translateX(-50px) rotateY(-10deg) scale(0.9);
+}
+
+.page-enter-diag {
+  opacity: 0;
+  transform: translate(100%, 100%) scale(0.9) rotate(5deg);
+}
+.page-enter-diag-active {
+  opacity: 1;
+  transform: translate(0, 0) scale(1) rotate(0deg);
+}
+.page-leave-diag {
+  opacity: 1;
+  transform: translate(0, 0) scale(1) rotate(0deg);
+}
+.page-leave-diag-active {
+  opacity: 0;
+  transform: translate(-100%, -100%) scale(0.9) rotate(-5deg);
+}
+
+.page-enter-curtain {
+  opacity: 0;
+  transform: scaleY(0);
+  transform-origin: top;
+}
+.page-enter-curtain-active {
+  opacity: 1;
+  transform: scaleY(1);
+}
+.page-leave-curtain {
+  opacity: 1;
+  transform: scaleY(1);
+}
+.page-leave-curtain-active {
+  opacity: 0;
+  transform: scaleY(0);
+}
+
+/* ================== 3D TILT ================== */
+.page-enter-tilt {
+  opacity: 0;
+  transform: rotateX(25deg) rotateY(25deg) scale(0.9);
+}
+.page-enter-tilt-active {
+  opacity: 1;
+  transform: rotateX(0deg) rotateY(0deg) scale(1);
+}
+.page-leave-tilt {
+  opacity: 1;
+  transform: rotateX(0deg) rotateY(0deg) scale(1);
+}
+.page-leave-tilt-active {
+  opacity: 0;
+  transform: rotateX(-25deg) rotateY(-25deg) scale(0.9);
+}
+
+/* ================== EXTRA ================== */
+.page-enter-skew {
+  opacity: 0;
+  transform: skew(20deg, 10deg) scale(0.9);
+}
+.page-enter-skew-active {
+  opacity: 1;
+  transform: skew(0deg, 0deg) scale(1);
+}
+.page-leave-skew {
+  opacity: 1;
+  transform: skew(0deg, 0deg) scale(1);
+}
+.page-leave-skew-active {
+  opacity: 0;
+  transform: skew(-20deg, -10deg) scale(0.9);
+}
+
+.page-enter-roll {
+  opacity: 0;
+  transform: rotate(-90deg) translateY(100%);
+}
+.page-enter-roll-active {
+  opacity: 1;
+  transform: rotate(0deg) translateY(0);
+}
+.page-leave-roll {
+  opacity: 1;
+  transform: rotate(0deg) translateY(0);
+}
+.page-leave-roll-active {
+  opacity: 0;
+  transform: rotate(90deg) translateY(-100%);
+}

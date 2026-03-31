@@ -1,0 +1,22 @@
+{
+    "name": "neuframework",
+    "version": "0.0.1",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build",
+        "preview": "vite preview",
+        "sdk": "npm run build && npx cap sync android && npx cap copy android && npx cap open android",
+        "neu": "npm run build && npx cap sync android && npx cap copy android",
+        "copy": "npx cap sync && npm run build && npm list"
+    },
+    "devDependencies": {
+        "@capacitor/cli": "^7.4.5",
+        "vite": "^7.2.4"
+    },
+    "dependencies": {
+        "@capacitor/android": "^7.4.5",
+        "@capacitor/core": "^7.4.5"
+    }
+}
