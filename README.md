@@ -263,6 +263,163 @@ Neu provides flexible runtime slots:
 * schedulers
 * overlays
 
+* ## Slot System
+
+Slots are **independent runtime units** managed by Neu.
+
+They are automatically resolved, mounted, and controlled by the runtime —
+no manual import or registration is required.
+
+---
+
+## Basic Example
+
+### Slot Definition
+
+```js
+// src/slot/player.js
+export default function player() {
+  return {
+    vNode: {
+      type: "div",
+      props: { class: "player" },
+      children: ["Player active"],
+    },
+    onInit() {
+      // lifecycle hook
+    },
+  };
+}
+```
+
+---
+
+### Usage in Page
+
+```html
+<div data-slot-id="player" data-leave="keep"></div>
+```
+
+---
+
+### Behavior
+
+* `data-slot-id` → maps to slot module (`src/slot/player.js`)
+* `data-leave="keep"` → keeps slot alive across pages
+* `data-leave="destroy"` → removes slot on page leave
+
+> Slots are resolved automatically by the runtime.
+
+---
+
+## Cross-Page Persistence
+
+Slots can persist across page transitions depending on their type.
+
+```html
+<!-- destroyed when leaving page -->
+<div data-slot-id="chat" data-leave="destroy"></div>
+
+<!-- persists across pages -->
+<div data-slot-id="player" data-leave="keep"></div>
+```
+
+### Use Cases
+
+* background services
+* global UI (player, navbar, overlay)
+* schedulers
+* shared logic across pages
+
+> Slots are not tied to a single page lifecycle.
+
+---
+
+## Slot Definition Variants
+
+Neu supports multiple slot definition styles.
+
+### 1. Direct Object (vNode)
+
+```js
+export default function slot() {
+  return {
+    vNode: {
+      type: "div",
+      children: ["Hello"],
+    },
+  };
+}
+```
+
+---
+
+### 2. DOM Element
+
+```js
+export default function slot() {
+  return {
+    el: Object.assign(document.createElement("div"), {
+      textContent: "Hello DOM",
+    }),
+  };
+}
+```
+
+---
+
+### 3. Factory Function
+
+```js
+export default function slot() {
+  return () => ({
+    el: document.createElement("div"),
+  });
+}
+```
+
+---
+
+### 4. Async Factory
+
+```js
+export default async function slot() {
+  return () => ({
+    el: document.createElement("div"),
+  });
+}
+```
+
+> All slot types are normalized and executed by the runtime.
+
+---
+
+## Lifecycle
+
+Slots support lifecycle hooks:
+
+```js
+export default function slot() {
+  return {
+    onInit() {
+      // called when slot is initialized
+    },
+  };
+}
+```
+
+---
+
+## Key Concept
+
+* Slots are **runtime-controlled units**
+* They can **persist across pages**
+* They are **automatically resolved**
+* They run inside a **deterministic execution model**
+
+> Pages are transient.
+> Slots can be persistent.
+
 ---
 
 ## Runtime Engine
