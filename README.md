@@ -263,8 +263,6 @@ Neu provides flexible runtime slots:
 * schedulers
 * overlays
 
-* ## Slot System
-
 Slots are **independent runtime units** managed by Neu.
 
 They are automatically resolved, mounted, and controlled by the runtime —
