@@ -56,6 +56,8 @@ src/
 └── main.js         # Main application entry point
 ```
 
+---
+
 ## 🚀 Development Workflow
 Once your project is ready, use the following terminal commands:
 
