@@ -198,7 +198,7 @@ Use cases:
 
 ---
 
-## ⚙️ Runtime Engine
+## Runtime Engine
 
 Neu runs on a deterministic loop:
 
