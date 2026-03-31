@@ -54,4 +54,27 @@ src/
 ├── plugins/        # Capacitor Plugin integrations (Camera, Storage, etc.)
 ├── slots/          # Reusable UI Components
 └── main.js         # Main application entry point
+```
 
+## 🚀 Development Workflow
+Once your project is ready, use the following terminal commands:
+
+*   **Web Dev Mode**: `npm run dev` (Open `localhost:5173`)
+*   **Sync Android**: `npm run neu` (Update web code to Android folder)
+*   **Build & Open IDE**: `npm run sdk` (Build web, sync, and launch Android Studio)
+*   **Preview Build**: `npm run preview`
+
+---
+
+## ✨ Key Features
+- **Zero Framework Overhead**: No React/Vue/Angular bloat, resulting in tiny APK sizes and instant app boot times.
+- **Smart Pathing**: Cleaner imports using `@app` or `@pages` aliases.
+- **Modular by Design**: A folder structure designed for long-term scalability.
+- **Gradle Locked**: Guaranteed smooth compilation in Android Studio by eliminating version mismatches.
+
+---
+
+## 🤝 Contribution
+Feedback and contributions are highly welcome! Feel free to open an **issue** or submit a **pull request** to help make Neu even better.
+
+**Best Regard @neufa by Ulywae**
