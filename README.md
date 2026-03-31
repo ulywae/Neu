@@ -1,12 +1,36 @@
 # Neu — Deterministic UI Runtime Engine
 
-**Neu** is a **deterministic runtime-driven SPA engine** for building high-performance Android/iOS applications using **Vanilla JavaScript**.
+**Neu** is a **deterministic, loop-driven SPA runtime engine** for building high-performance Android/iOS apps using **Vanilla JavaScript**.
 
 > Not a framework.
 > Not a virtual DOM.
 > Not reactive magic.
 >
 > **Neu is a runtime.**
+
+> Neu is closer to a *game engine* than a UI framework.
+
+---
+
+## 10-Second Example
+
+```js
+import neu from "./app/neu.js";
+
+neu.ready(async () => {
+  await neu.injectPage();
+  await neu.routerStart();
+
+  neu.loop.start();
+
+  // deterministic loop
+  neu.on("tick", (dt) => {
+    console.log("running", dt);
+  });
+});
+```
+
+> No reactivity. No virtual DOM. Just a controlled runtime.
 
 ---
 
@@ -22,6 +46,16 @@ Engine → Runtime → Pages / Slots → DOM
 
 > The runtime controls everything.
 > The DOM only reflects it.
+
+---
+
+## What Makes Neu Different
+
+* Loop-driven instead of event-driven
+* Deterministic execution (predictable timing)
+* No virtual DOM overhead
+* No hidden lifecycle
+* Full control over rendering and behavior
 
 ---
 
@@ -133,8 +167,6 @@ neu.ready(async () => {
 
 ## DOM Access Layers
 
-Neu provides **multi-layer DOM control**:
-
 ### 1. Scoped DOM (`dom`)
 
 Access only inside active page/slot.
@@ -180,7 +212,7 @@ dom.appendHtml("target", el.el[0].outerHTML);
 
 ## Slot System
 
-Neu supports flexible runtime slots:
+Neu provides flexible runtime slots:
 
 | Type    | Behavior                |
 | ------- | ----------------------- |
@@ -189,7 +221,7 @@ Neu supports flexible runtime slots:
 | once    | run once                |
 | destroy | auto cleanup            |
 
-Use cases:
+### Use Cases
 
 * background services
 * global UI
@@ -222,7 +254,7 @@ neu.configRouter({
 });
 ```
 
-### Effects:
+### Effects
 
 * step-based rendering
 * controlled transitions
@@ -234,19 +266,18 @@ neu.configRouter({
 
 ## Debug Console
 
-Neu includes a built-in **floating debug console**.
+Neu includes a built-in floating debug console.
 
 ```js
 neu.debug.set(true);
 neu.debug.log("Hello Neu");
 ```
 
-### Features:
+### Features
 
-* floating overlay
-* draggable UI
+* draggable overlay
 * real-time logs
-* works on mobile
+* mobile support
 
 > Debug your app where it actually runs.
 
@@ -259,21 +290,21 @@ neu.debug.log("Hello Neu");
 * Full lifecycle control
 * Slot-based architecture
 * Clean DOM management
-* BIOS-style rendering mode
-* Loader selection mode
-* Floating debug console
+* BIOS-style rendering
+* Loader modes
+* Built-in debug console
 * Native-ready (Capacitor)
 
 ---
 
 ## Tech Stack
 
-| Component  | Version |
-| ---------- | ------- |
-| Node.js    | v20.x   |
-| Vite       | 7.x     |
-| Capacitor  | 7.x     |
-| Java (JDK) | 17      |
+| Component | Version |
+| --------- | ------- |
+| Node.js   | v20.x   |
+| Vite      | 7.x     |
+| Capacitor | 7.x     |
+| Java      | 17      |
 
 ---
 
@@ -281,16 +312,10 @@ neu.debug.log("Hello Neu");
 
 Use Neu if you need:
 
-* high performance apps
+* high-performance apps
 * deterministic behavior
 * full runtime control
 * minimal abstraction
-
-Avoid Neu if you prefer:
-
-* heavy frameworks
-* reactive patterns
-* large ecosystems
 
 ---
 
