@@ -1,4 +1,4 @@
-# 🚀 Neu — Deterministic UI Runtime Engine
+# Neu — Deterministic UI Runtime Engine
 
 **Neu** is a **deterministic runtime-driven SPA engine** for building high-performance Android/iOS applications using **Vanilla JavaScript**.
 
@@ -10,7 +10,7 @@
 
 ---
 
-## ⚡ Core Idea
+## Core Idea
 
 Neu treats the DOM as a **render target**, not the source of truth.
 
@@ -25,7 +25,7 @@ Engine → Runtime → Pages / Slots → DOM
 
 ---
 
-## 🏗️ Architecture
+## Architecture
 
 ```text
           ┌──────────────────────┐
@@ -57,7 +57,7 @@ Engine → Runtime → Pages / Slots → DOM
 
 ---
 
-## 🧠 Philosophy
+## Philosophy
 
 * No virtual DOM
 * No reactive overhead
@@ -68,7 +68,7 @@ Engine → Runtime → Pages / Slots → DOM
 
 ---
 
-## ⚡ Quick Start
+## Quick Start
 
 ```bash
 npm install
@@ -83,7 +83,7 @@ http://localhost:5173
 
 ---
 
-## 🧪 Minimal App Example
+## Minimal App Example
 
 ```js
 import neu from "./app/neu.js";
@@ -113,7 +113,7 @@ neu.ready(async () => {
 
 ---
 
-## 🔄 Lifecycle Model
+## Lifecycle Model
 
 ```text
 [Old Page]
@@ -131,7 +131,7 @@ neu.ready(async () => {
 
 ---
 
-## 🧩 DOM Access Layers
+## DOM Access Layers
 
 Neu provides **multi-layer DOM control**:
 
@@ -178,7 +178,7 @@ dom.appendHtml("target", el.el[0].outerHTML);
 
 ---
 
-## 🧩 Slot System
+## Slot System
 
 Neu supports flexible runtime slots:
 
@@ -214,7 +214,7 @@ neu.on("tick", (dt) => {
 
 ---
 
-## 🖥️ BIOS Style Mode
+## BIOS Style Mode
 
 ```js
 neu.configRouter({
@@ -232,7 +232,7 @@ neu.configRouter({
 
 ---
 
-## 🧪 Debug Console
+## Debug Console
 
 Neu includes a built-in **floating debug console**.
 
@@ -252,7 +252,7 @@ neu.debug.log("Hello Neu");
 
 ---
 
-## 🚀 Key Features
+## Key Features
 
 * Deterministic runtime engine
 * Stable 60 FPS loop
@@ -266,7 +266,7 @@ neu.debug.log("Hello Neu");
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 | Component  | Version |
 | ---------- | ------- |
@@ -277,7 +277,7 @@ neu.debug.log("Hello Neu");
 
 ---
 
-## 📌 When to Use Neu
+## When to Use Neu
 
 Use Neu if you need:
 
@@ -294,7 +294,7 @@ Avoid Neu if you prefer:
 
 ---
 
-## 🤝 Contribution
+## Contribution
 
 * open issues
 * submit PRs
@@ -302,13 +302,13 @@ Avoid Neu if you prefer:
 
 ---
 
-## 👤 Author
+## Author
 
 **Neu by Ulywae**
 *A handcrafted deterministic runtime engine.*
 
 ---
 
-## ⭐ Final Note
+## Final Note
 
 > Neu runs like a system — not just an app.
