@@ -1,4 +1,6 @@
-# Logs
+# --- Neu Framework Ignore List ---
+
+# Logs & Debug
 logs
 *.log
 npm-debug.log*
@@ -7,12 +9,14 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Dependencies
+# (Jangan pernah upload folder ini, biarkan user install via npm)
 node_modules
 dist
 dist-ssr
 *.local
 
-# Editor directories and files
+# Editor Directories & Files
 .vscode/*
 !.vscode/extensions.json
 .idea
@@ -22,3 +26,24 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Capacitor Specific
+# Tambahkan ini jika ingin mengabaikan folder native (opsional)
+# android/
+# ios/
+# Ignore file data sensitif di folder android
+android/.gradle
+android/build
+android/app/build
+android/local.properties
+android/captures
+android/*.iml
+
+# Environment Variables
+.env
+.env.*
+!.env.example
+
+# OS Specific Files
+Thumbs.db
+desktop.ini
