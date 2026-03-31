@@ -25,6 +25,7 @@ neu.configRouter({
 ```
 
 > Just configure and start. The router is already available.
+> Router is part of the runtime, not an external dependency.
 
 ---
 
