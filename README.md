@@ -176,7 +176,7 @@ neu.ready(async () => {
   neu.on("tick", (dt) => {}, { page: "global" });
 
   // Scheduled task
-  neu.loop.schedule("repeatTask", async () => {}, 5000);
+  neu.loop.schedule("repeatTask", async () => {}, 5000, true); // set true for enable repeat
 });
 ```
 
