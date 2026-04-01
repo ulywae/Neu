@@ -237,12 +237,12 @@ $$.global(".nav-item").on("click", (e) => {
 
 ---
 
-### 3. Global Outside Scope (`$$.globalOutsideScope`)
+### 3. Global Outside Scope (`outScope`)
 
 Global elements excluding active page.
 
 ```js
-$$.globalOutsideScope("div").css("opacity", "0.5");
+dom.addClass("global-sidebar", "open", { page: "outScope" });
 ```
 
 ---
