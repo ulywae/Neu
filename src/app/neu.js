@@ -1,4 +1,5 @@
-﻿// neu.js — Public API for Neu Runtime (FINAL)
+/// <reference path="./neu.d.ts" />
+// neu.js — Public API for Neu Runtime (FINAL)
 import { createApp as _createApp } from "./core.js";
 import { createNeuRouter as _createRouter } from "./neuRouter.js";
 
