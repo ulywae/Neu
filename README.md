@@ -626,4 +626,5 @@ Use Neu if you need:
 ## Final Note
 
 > Neu runs like a system — not just an app.
+> 
 > Designed to stay simple on the surface, but powerful underneath.
