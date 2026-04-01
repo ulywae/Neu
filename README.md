@@ -195,6 +195,9 @@ neu.ready(async () => {
   ↓ pageInit
   ↓ pageAfterIn
 ```
+```text
+ Lifecycle: pageBeforeOut → pageMount → pageInit → pageUnmount → pageDestroy → pageAfterIn
+```
 
 > Full lifecycle control. No hidden behavior.
 
