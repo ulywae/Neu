@@ -212,6 +212,93 @@ neu.on("pageUnmount", (pageName) => {
 
 ---
 
+## Flexible Page Cache
+
+Neu allows fine-grained control over page caching.
+
+```js
+const routerConfig = {
+  root: "welcome",
+  cachePages: ["about", "gallery"],
+  maxCache: 2, 
+};
+```
+
+> You can limit how many pages are kept in memory
+
+---
+
+### Features
+
+* Select which pages should be cached
+* Limit total cached pages
+* Preserve DOM and state automatically
+
+---
+
+### Behavior
+
+Cached pages:
+
+* are not destroyed on leave
+* remain in memory
+* are instantly restored when revisited
+
+Non-cached pages:
+
+* are fully destroyed
+* re-created on next visit
+
+---
+
+### Page-Level Cache Control
+
+Pages can declare their own cache behavior using attributes:
+
+```js id="l2xk3a"
+el.setAttribute("data-cache", "true");
+```
+
+---
+
+### Combined Strategy
+
+Neu supports both:
+
+* Router-level cache control
+* Page-level cache declaration
+
+This allows flexible strategies:
+
+* centralized (router-driven)
+* distributed (page-driven)
+
+---
+
+### Priority
+
+Cache behavior is resolved by the runtime based on:
+
+* router configuration
+* page attributes
+* runtime conditions
+
+> Neu ensures consistent behavior without manual intervention.
+
+---
+
+### Key Concept
+
+Cache is:
+
+* controlled by the router
+* integrated with lifecycle
+* fully handled by the runtime
+
+> No manual state handling required.
+
+---
+
 ## DOM Access Layers
 
 ### 1. Scoped DOM (`dom`)
