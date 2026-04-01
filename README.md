@@ -198,6 +198,15 @@ neu.ready(async () => {
 ```text
  Lifecycle: pageBeforeOut → pageMount → pageInit → pageUnmount → pageDestroy → pageAfterIn
 ```
+```js
+neu.on("pageInit", (pageName) => {
+  console.log(`[App] pageInit -> ${pageName}`);
+});
+
+neu.on("pageUnmount", (pageName) => {
+  neu.debug.log(`[App] pageUnmount -> ${pageName}`);
+});
+```
 
 > Full lifecycle control. No hidden behavior.
 
