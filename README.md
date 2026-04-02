@@ -551,6 +551,28 @@ export default function slot() {
 
 ---
 
+### Persistent Global Layers
+
+You can inject global UI elements (Sidebars, Bottom Navs, or Overlays) that persist across all page transitions. These layers are injected once and are never destroyed by the router.
+
+```js
+import { sidebarContent, sidebarLeft, sidebarRight } from "./modules/sidebars.js";
+
+const layers = [sidebarContent, sidebarLeft, sidebarRight];
+
+// Inject once during initial boot
+await neu.injectPage({
+  ensureLayers: layers,
+  biosStyle: true,
+  loaderStyle: 1
+});
+```
+* Shell Persistence: The sidebar stays in the DOM regardless of page switches.
+* Native Feel: Zero flickering on global UI elements during navigation.
+* Independent Lifecycle: Global layers can have their own event listeners that live for the entire app session.
+  
+---
+
 ## Runtime Engine
 
 Neu runs on a deterministic loop:
