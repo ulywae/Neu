@@ -382,6 +382,50 @@ export default function WelcomePage() {
 
 ---
 
+## Neu Magic Cheat Sheet
+
+Control the entire engine directly from your HTML elements. Neu translates these simple attributes into powerful engine instructions—no complex JavaScript configuration required!
+
+### Data Attributes Reference
+
+
+| Attribute | Value | Description |
+| :--- | :--- | :--- |
+| `data-page` | `string` | **Identity.** Unique ID for the page (Required). |
+| `data-router` | *(none)* | **Navigation.** Add to any `<a>` tag to enable automatic SPA routing. |
+| `data-transition` | `string` | **Animation.** Set the effect (e.g., `fade`, `slide-up`, `zoom-in`). |
+| `data-cache` | `true/false` | **Memory.** Enable Smart LRU caching to preserve DOM & State (Instant Back). |
+| `data-slot-id` | `string` | **Components.** Define a placeholder to be filled by a Slot/Component. |
+| `data-leave` | `destroy/keep` | **Cleanup.** Choose whether a slot is destroyed or kept in memory on leave. |
+
+### The Power Combo Example
+Combine these attributes to create a high-performance, animated, and cached page in a single line of HTML:
+
+```html
+<!-- Inside your welcome.html or any page -->
+<div class="page" 
+     data-page="dashboard" 
+     data-transition="slide-left" 
+     data-cache="true">
+    
+    <h1>Executive Dashboard</h1>
+    
+    <!-- Automatic SPA Link -->
+    <a href="/settings" data-router>Go to Settings</a>
+    
+    <!-- Persistent Dynamic Component Slot -->
+    <div data-slot-id="UserProfile" data-leave="keep"></div>
+</div>
+```
+
+###  Pro Tips for Performance:
+
+* Auto-Magic Transitions: If you don't set a specific data-transition, Neu can randomly pick an effect from your transitions.css (if enabled).
+* Instant-Back Experience: Always use data-cache="true" on heavy forms or data lists to ensure users never lose their position or input when navigating back.
+* Automatic Janitor: Always use neu.dom.on(el, event, cb, "page"). Neu acts as your automatic nanny, sweeping up all event listeners when the page is destroyed
+
+---
+
 ## DOM Access Layers
 
 ### 1. Scoped DOM (`dom`)
