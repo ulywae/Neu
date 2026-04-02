@@ -331,9 +331,12 @@ Cache is:
 
 ---
 
-### Zero-Config Pages (Auto-Discovery)Forget manual routing tables. In Neu, creating a new page is as simple as adding a file to your pages folder. No boilerplate, no complex imports.
+## Zero-Config Pages (Auto-Discovery)
 
-1. Create your UI (welcome.html)
+Forget manual routing tables. In Neu, creating a new page is as simple as adding a file to your pages folder. No boilerplate, no complex imports.
+
+### 1. Create your UI (welcome.html)
+
 Design your page using pure, standard HTML.
 
 ```html
@@ -345,7 +348,8 @@ Design your page using pure, standard HTML.
 </div>
 ```
 
-2. Create the Controller (welcome.js)
+### 2. Create the Controller (welcome.js)
+
 Import your HTML and export the function. Neu will automatically recognize it based on the folder structure!
 
 ```js
