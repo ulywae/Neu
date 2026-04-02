@@ -426,6 +426,69 @@ Combine these attributes to create a high-performance, animated, and cached page
 
 ---
 
+## Advanced Router Controls 
+
+The Neu Router isn't just about changing URLs; it's a lifecycle manager. It handles persistent UI layers, automated stress testing, and deep system restarts.
+
+### 1. Persistent UI Shell (`ensureLayers`)
+
+Inject global components (Sidebars, Navbars, or Backgrounds) that stay alive throughout the entire session. These layers are never destroyed by the page router.
+
+```javascript
+import { sidebar, navbar } from "./modules/ui.js";
+
+// Inject the App Shell once during boot
+await neu.injectPage({
+  ensureLayers: [sidebar, navbar], // The "Immortal" layers
+  biosStyle: true,                 // Enable BIOS boot sequence
+  loaderStyle: 1                   // Choose your loader type
+});
+```
+
+### 2. Burn Test: switcherRandomPage
+
+Prove that your app is "Muscular" and anti-crash. This tool automatically navigates through all your routes at high speed to detect memory leaks or race conditions.
+
+```javascript
+// Start navigating every 400ms automatically
+const test = neu.switcherRandomPage(400);
+
+// Stop the test anytime
+setTimeout(() => test.stop(), 10000); 
+```
+
+### 3. System Lifecycle Management
+
+Neu provides full control over the engine's state, allowing for deep refreshes or full system re-injections.
+
+| Method | Type | Description |
+| :--- | :--- | :--- |
+| `neu.reloadCurrent()` | *Hot Refresh* | Re-triggers onInit without re-creating DOM. |
+| `neu.routerRestart()` | *	Full Reset* | Destroys the engine, re-injects layers, and restarts from root. |
+| `neu.defaultRoute()` | *Home* |	Shortcut to navigate back to the / root path. |
+
+### 4. Router Configuration API
+
+Customize the engine behavior directly through configRouter.
+
+```javascript
+neu.configRouter({
+  root: "welcome",        // Default landing page ID
+  maxCache: 10,           // Smart LRU capacity
+  disableBack: true,      // Trap the browser back button
+  injectTimeout: 5000,    // Max time allowed for page injection
+  bgClass: "bg-blue"      // Visual backdrop during transitions
+});
+```
+
+### Technical Highlights:
+
+* Auto-Import Engine: Automatically scans src/pages and src/slots using Vite's import.meta.glob.
+* Parallel Slot Injection: Slots are mounted concurrently using Promise.all for maximum speed.
+* Context Safety: Navigation is wrapped in try/catch and communicates via the global EventBus.
+
+---
+
 ## DOM Access Layers
 
 ### 1. Scoped DOM (`dom`)
