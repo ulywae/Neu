@@ -212,25 +212,50 @@ neu.on("pageUnmount", (pageName) => {
 
 ---
 
-## Flexible Page Cache
+## Smart Memory Management (LRU + Whitelist)
 
-Neu allows fine-grained control over page caching.
+Neu provides fine-grained control over page memory using an intelligent **Smart LRU (Least Recently Used)** system. It automatically manages your app's footprint, ensuring a buttery-smooth experience even on low-end devices (Capacitor v7 ready).
+
+### 1. How It Works
+The engine tracks your navigation history. When the memory pool reaches its limit, the **oldest unused page** is automatically destroyed to free up RAM—unless it is an "Early Bird" (**Whitelisted**).
+
+### 2. Page Whitelisting (The "VIP" Pages)
+Whitelisted pages are **immune** to the auto-destroy sequence. They stay in memory to provide a **0ms Instant-Back** experience, perfect for Dashboards or complex Forms with heavy state.
+
+```js
+// Register "VIP" pages that should never be destroyed by the LRU
+neu.setWhitelist(["dashboard", "checkout", "profile-editor"]);
+```
+
+### 3. Manual Cache Control
+You can dynamically adjust the engine's limits or clear the memory pool manually at runtime.
+
+```js
+// Adjust max cached pages (Default: 10)
+neu.setMaxCache(20); 
+
+// Clear all page memory manually
+neu.clearCache();
+```
+> You can limit how many pages are kept in memory
+
+### 4. Hybrid Caching Strategy
+Neu supports both Centralized (Router-driven) and Distributed (Page-driven) caching declarations.
 
 ```js
 const routerConfig = {
   root: "welcome",
-  cachePages: ["about", "gallery"],
-  maxCache: 2, 
+  cachePages: ["about", "gallery"], // List of cacheable pages
+  maxCache: 5, 
 };
 ```
-
-> You can limit how many pages are kept in memory
 
 ---
 
 ### Features
 
 * Select which pages should be cached
+* Page Whitelist
 * Limit total cached pages
 * Preserve DOM and state automatically
 
@@ -255,8 +280,15 @@ Non-cached pages:
 
 Pages can declare their own cache behavior using attributes:
 
-```js id="l2xk3a"
-el.setAttribute("data-cache", "true");
+```js
+export default function OrderPage() {
+  const el = neu.dom.getE("div");
+  
+  // Enable caching on-the-fly for this specific page instance
+  el.setAttribute("data-cache", "true");
+  
+  return { name: "order", el, onInit() { ... } };
+}
 ```
 
 ---
