@@ -464,7 +464,7 @@ Neu provides full control over the engine's state, allowing for deep refreshes o
 | Method | Type | Description |
 | :--- | :--- | :--- |
 | `neu.reloadCurrent()` | *Hot Refresh* | Re-triggers onInit without re-creating DOM. |
-| `neu.routerRestart()` | *	Full Reset* | Destroys the engine, re-injects layers, and restarts from root. |
+| `neu.routerRestart()` | *Full Reset* | Destroys the engine, re-injects layers, and restarts from root. |
 | `neu.defaultRoute()` | *Home* |	Shortcut to navigate back to the / root path. |
 
 ### 4. Router Configuration API
