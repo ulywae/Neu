@@ -640,6 +640,64 @@ neu.debug.log("Hello Neu");
 
 ---
 
+### Custom Animations (Zero-Config)
+
+Neu Engine features Auto-Discovery Transitions. You don't need to register your animations in JavaScript. Just write your CSS, and the engine will automatically recognize and use them via data-transition.
+
+1. Create Your Animation in CSS
+Open your transitions.css and follow this naming convention: .page-[mode]-[name].
+
+```css
+/* Example: Custom "Slide-Up" Animation */
+
+/* Enter state */
+.page-enter-slide-up {
+  transform: translateY(100%);
+  opacity: 0;
+}
+.page-enter-slide-up-active {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Leave state */
+.page-leave-slide-up {
+  transform: translateY(0);
+  opacity: 1;
+}
+.page-leave-slide-up-active {
+  transform: translateY(-100%);
+  opacity: 0;
+}
+```
+
+2. Use It Anywhere
+Simply add the data-transition attribute to your page element using the name you defined in CSS (e.g., slide-up).
+
+```js
+export default function SecretPage() {
+  const el = neu.dom.getE("div");
+  
+  // Neu automatically detects "slide-up" from your CSS!
+  el.setAttribute("data-transition", "slide-up");
+  
+  return { name: "secret", el, onInit() { ... } };
+}
+```
+
+## How it Works (The Magic)
+
+Neu uses CSS Reflection. It scans your document stylesheets on boot to find classes starting with .page-enter-. This means:
+
+* Zero Hardcoding: No need to update JS arrays for new effects.
+* Dynamic Timing: Neu automatically calculates the animation duration from your CSS transition-duration or animation-duration.
+* Designer Friendly: Add as many effects as you want just by typing CSS.
+* Decoupled Design: Visuals stay in CSS, Logic stays in JS.
+* Infinite Effects: Want a bounce, rotate, or zoom? Just write the CSS and Neu handles the heavy lifting.
+* No Overhead: No extra JS logic needed to "register" your creative work.
+
+---
+
 ## Tech Stack
 
 | Component | Version |
