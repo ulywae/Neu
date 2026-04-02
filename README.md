@@ -331,6 +331,53 @@ Cache is:
 
 ---
 
+### Zero-Config Pages (Auto-Discovery)Forget manual routing tables. In Neu, creating a new page is as simple as adding a file to your pages folder. No boilerplate, no complex imports.
+
+1. Create your UI (welcome.html)
+Design your page using pure, standard HTML.
+
+```html
+<div class="page">
+    <h1>Welcome to Neu</h1>
+    <p>This is the start of your high-performance digital engine.</p>
+    <!-- Just add data-router to any link! -->
+    <a href="/home" data-router>Enter Dashboard</a>
+</div>
+```
+
+2. Create the Controller (welcome.js)
+Import your HTML and export the function. Neu will automatically recognize it based on the folder structure!
+
+```js
+import welcomeHTML from "./welcome.html?raw";
+
+export default function WelcomePage() {
+  const el = document.createElement("div");
+  el.setAttribute("data-page", "welcome");
+  el.innerHTML = welcomeHTML;
+
+  return {
+    name: "welcome",
+    el,
+    onInit() {
+      // Logic goes here
+    },
+    onDestroy() {
+      // Cleanup is automatic!
+    }
+  };
+}
+```
+
+* No Router Config: If it's in the folder, Neu finds it. Set and Forget.
+* Separation of Concerns: Keep your Logic in .js and your Design in .html.
+* Vite Integration: Uses the power of Vite ?raw to keep your bundle lightning-fast.
+* Implicit Routing: The data-router attribute tells Neu to handle navigation automatically—no manual click listeners needed for links!
+
+> Design in HTML, Logic in JS, Routing in Folders.
+
+---
+
 ## DOM Access Layers
 
 ### 1. Scoped DOM (`dom`)
