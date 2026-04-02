@@ -59,7 +59,9 @@ export function createEngine(app) {
   // --- main loop ---
   function loopFrame(now) {
     if (!running) return;
-    const delta = now - lastTime;
+    let delta = now - lastTime;
+    if (delta > 100) delta = 16;
+    
     lastTime = now;
 
     // 1) modules
