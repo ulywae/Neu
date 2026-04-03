@@ -714,27 +714,11 @@ export default function slot() {
 You can inject global UI elements (Sidebars, Bottom Navs, or Overlays) that persist across all page transitions. These layers are injected once and are never destroyed by the router.
 
 ```javascript
-export function sidebarContent() {
+export function sidebar() {
   return {
     id: "sidebar",
     class: "sidebar",
     content: `<ul><li>Home 1</li><li>Home 2</li></ul>`,
-  };
-}
-
-export function sidebarLeft() {
-  return {
-    id: "sidebarLeft",
-    class: "sidebar-left",
-    content: `<ul><li>Home 1</li><li>Home 2</li></ul>`,
-  };
-}
-
-export function sidebarRight() {
-  return {
-    id: "sidebarRight",
-    class: "sidebar-right",
-    content: `<p>© 2025 My App</p>`,
   };
 }
 ```
@@ -742,9 +726,9 @@ export function sidebarRight() {
 How to use:
 
 ```javascript
-import { sidebarContent, sidebarLeft, sidebarRight } from "./modules/sidebars.js";
+import { sidebar, navbar } from "./modules/sidebars.js";
 
-const layers = [sidebarContent, sidebarLeft, sidebarRight];
+const layers = [sidebarContent, navbar];
 
 // Inject once during initial boot
 await neu.injectPage({
