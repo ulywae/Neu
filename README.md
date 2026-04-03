@@ -713,7 +713,35 @@ export default function slot() {
 
 You can inject global UI elements (Sidebars, Bottom Navs, or Overlays) that persist across all page transitions. These layers are injected once and are never destroyed by the router.
 
-```js
+```javascript
+export function sidebarContent() {
+  return {
+    id: "sidebar",
+    class: "sidebar",
+    content: `<ul><li>Home 1</li><li>Home 2</li></ul>`,
+  };
+}
+
+export function sidebarLeft() {
+  return {
+    id: "sidebarLeft",
+    class: "sidebar-left",
+    content: `<ul><li>Home 1</li><li>Home 2</li></ul>`,
+  };
+}
+
+export function sidebarRight() {
+  return {
+    id: "sidebarRight",
+    class: "sidebar-right",
+    content: `<p>© 2025 My App</p>`,
+  };
+}
+```
+
+How to use:
+
+```javascript
 import { sidebarContent, sidebarLeft, sidebarRight } from "./modules/sidebars.js";
 
 const layers = [sidebarContent, sidebarLeft, sidebarRight];
