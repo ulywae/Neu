@@ -535,9 +535,11 @@ dom.appendHtml("target", el.el[0].outerHTML);
 ---
 
 ## Neu DOM & Helper Cheat Sheet
+
 Neu provides two powerful ways for DOM manipulation: neu.$$ (Wrapped Engine) for chainable actions, and neu.dom (Helper) for fast, ID-based operations.
 
 ### 1. Scoped Selector neu.$$ (Wrapped)
+
 Use this for bulk manipulation with an elegant chaining style.
 
 | Feature | Code Example | Description |
@@ -551,12 +553,18 @@ Use this for bulk manipulation with an elegant chaining style.
 
 ------------------------------
 ### 2. Fast Helper neu.dom
+
 Use this for quick manipulation of specific elements based on their ID.
+
 ### Getters
 
 ```javascript
-// Single element selectionconst box = neu.dom.getE("myBox"); // Default page scope ($)const nav = neu.dom.getE("navbar", { page: "global" }); // Search outside page scope
-// Multiple elements (Query Selector)const items = neu.dom.getQ(".items");
+// Single element selectionconst
+box = neu.dom.getE("myBox"); // Default page scope ($)
+const nav = neu.dom.getE("navbar", { page: "global" }); // Search outside page scope
+
+// Multiple elements (Query Selector)
+const items = neu.dom.getQ(".items");
 ```
 
 ### Class & Style
