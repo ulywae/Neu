@@ -561,7 +561,10 @@ Use this for quick manipulation of specific elements based on their ID.
 ```javascript
 // Single element selectionconst
 box = neu.dom.getE("myBox"); // Default page scope ($)
-const nav = neu.dom.getE("navbar", { page: "global" }); // Search outside page scope
+const nav = neu.dom.getE("navbar", { page: "global" }); // Search full scope
+const hero = neu.dom.getE("hero", { page: "outScope" }) // Search elements OUTSIDE the current page scope
+
+const inputs = neu.dom.getQ("input", { visibleOnly: true }) // Select only elements currently visible on screen
 
 // Multiple elements (Query Selector)
 const items = neu.dom.getQ(".items");
