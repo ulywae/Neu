@@ -1013,9 +1013,9 @@ neu.ready(() => {
 
 ### Why this is "Perfectly Connected":
 
-* 1. Direct Access: Plugins get the full app, allowing them to manipulate the DOM via app.dom, schedule events via app.schedule, or navigate via app.navigate.
-*  2. Zero Conflict: Because they use their own namespace (e.g., app.myFeature), additional features won't interfere with Neu's core functionality.
-*  3. Lifecycle Aware: Plugins can listen to engine:start or pageMount events for automatic synchronization.
+* Direct Access: Plugins get the full app, allowing them to manipulate the DOM via app.dom, schedule events via app.schedule, or navigate via app.navigate.
+* Zero Conflict: Because they use their own namespace (e.g., app.myFeature), additional features won't interfere with Neu's core functionality.
+* Lifecycle Aware: Plugins can listen to engine:start or pageMount events for automatic synchronization.
 
 ---
 
