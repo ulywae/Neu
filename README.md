@@ -526,11 +526,73 @@ dom.addClass("global-sidebar", "open", { page: "outScope" });
 
 ### 4. Dynamic Creation
 
-```js
+```javascript
 const el = $$.create("div", { class: "alert-box" });
 el.text("Ready!");
 dom.appendHtml("target", el.el[0].outerHTML);
 ```
+
+---
+
+## Neu DOM & Helper Cheat Sheet
+Neu provides two powerful ways for DOM manipulation: neu.$$ (Wrapped Engine) for chainable actions, and neu.dom (Helper) for fast, ID-based operations.
+
+### 1. Scoped Selector neu.$$ (Wrapped)
+Use this for bulk manipulation with an elegant chaining style.
+
+| Feature | Code Example | Description |
+|---|---|---|
+| Select | neu.$$(".box") | Select all .box elements within the active page. |
+| Chaining | neu.$$(".item").addClass("v-in").css("color", "red") | Add class and style simultaneously. |
+| Events | neu.$$(".btn").on("click", (e) => { ... }) | Bind event to all selected elements. |
+| Content | neu.$$(".title").html("<h1>New</h1>") | Modify innerHTML. |
+| Attribute | neu.$$("img").attr("src", "new.png") | Change element attributes. |
+| Traversal | neu.$$(".child").parent().addClass("parent-active") | Access the parent element. |
+
+------------------------------
+### 2. Fast Helper neu.dom
+Use this for quick manipulation of specific elements based on their ID.
+### Getters
+
+```javascript
+// Single element selectionconst box = neu.dom.getE("myBox"); // Default page scope ($)const nav = neu.dom.getE("navbar", { page: "global" }); // Search outside page scope
+// Multiple elements (Query Selector)const items = neu.dom.getQ(".items");
+```
+
+### Class & Style
+
+```javascript
+neu.dom.addClass("box", "active");      // Add a single class
+neu.dom.addClasses("box", ["a", "b"]);  // Add multiple classes
+neu.dom.toggleActive("button");         // Toggle "active" class (Shorthand)
+neu.dom.hasClass("box", "active");      // Check if class exists
+```
+
+### Content & Attr
+
+```javascript
+neu.dom.addInnerHtml("status", "<p>Ready</p>"); // Set HTML content
+neu.dom.appendHtml("list", "<li>Item 1</li>");  // Append at the end
+neu.dom.setAttr("logo", "alt", "Neu Logo");     // Set attribute
+```
+
+### Visibility & Events
+
+```javascript
+neu.dom.show("loading");   // Show element (display: "")
+neu.dom.hide("loading");   // Hide element (display: "none")
+
+neu.dom.on("btn", "click", () => { ... }); // Bind event
+neu.dom.off("btn", "click", handler);      // Remove event
+```
+
+------------------------------
+
+### Performance Tips
+
+* ID Caching: neu.dom.getE automatically stores ID elements in memory. Subsequent lookups are instant (O(1)).
+* GPU Animation: Use neu.$$(".box").css("transform", "translateX(10px)") for smoother animations on Capacitor.
+* Automatic Cleanup: All events bound within a page are automatically removed by Neu during route changes (unless whitelisted).
 
 ---
 
