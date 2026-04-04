@@ -941,6 +941,84 @@ Neu uses CSS Reflection. It scans your document stylesheets on boot to find clas
 
 ---
 
+## Neu Plugin Template (neu-plugin-example.js)
+
+Here is an example template for creating a plugin.
+
+```js
+/**
+ * Neu Plugin Template
+ * A standardized way to extend Neu Runtime.
+ * @param {object} app - The Neu appInstance
+ * @param {object} options - Plugin configuration
+ */export default function MyNeuPlugin(app, options = {}) {
+  // 1. Default Options
+  const config = {
+    enabled: true,
+    ...options
+  };
+
+  if (!config.enabled) return;
+
+  // 2. Internal State (Private to Plugin)
+  let pluginState = "initial";
+
+  // 3. Add New API to appInstance
+  // This will be accessible via neu.myFeature() or app.myFeature()
+  app.myFeature = {
+    doSomething() {
+      app.info("[Plugin] Doing something...");
+      app.emit("plugin:action", { status: "success" });
+    },
+    getState: () => pluginState
+  };
+
+  // 4. Hook into Engine Loop (Optional)
+  // If your plugin needs a heartbeat (e.g., Sound, Physics, Network Sync)
+  if (app.loop) {
+    app.loop.addGroup("my_plugin_tick", (dt) => {
+      // High-performance logic here
+    }, 10); // Run at 10 FPS
+  }
+
+  // 5. Global Event Listeners
+  app.on("engine:start", () => {
+    app.log("[Plugin] Initialized and ready.");
+  });
+
+  // 6. Cleanup (Optional - if plugin is removable)
+  app.on("engine:stop", () => {
+    if (app.loop) app.loop.removeGroup("my_plugin_tick");
+  });
+}
+```
+
+---
+
+### How to Use
+
+Just call with neu.use():
+
+```js
+import MyNeuPlugin from "./plugins/my-plugin.js";
+
+neu.use(MyNeuPlugin, { enabled: true });
+// Now use the new feature anywhere!
+neu.ready(() => {
+  neu.myFeature.doSomething();
+});
+```
+
+---
+
+### Why this is "Perfectly Connected":
+
+* 1. Direct Access: Plugins get the full app, allowing them to manipulate the DOM via app.dom, schedule events via app.schedule, or navigate via app.navigate.
+*  2. Zero Conflict: Because they use their own namespace (e.g., app.myFeature), additional features won't interfere with Neu's core functionality.
+*  3. Lifecycle Aware: Plugins can listen to engine:start or pageMount events for automatic synchronization.
+
+---
+
 ## Tech Stack
 
 | Component | Version |
