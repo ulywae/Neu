@@ -547,7 +547,7 @@ Use this for bulk manipulation with an elegant chaining style.
 | Select | *neu.$$(".box")* | Select all .box elements within the active page. |
 | Chaining | *neu.$$(".item").addClass("v-in").css("color", "red")* | Add class and style simultaneously. |
 | Events | *neu.$$(".btn").on("click", (e) => { ... })* | Bind event to all selected elements. |
-| Content | *neu.$$(".title").html("<h1>New</h1>")* | Modify innerHTML. |
+| Content | *neu.$$(".title").html("New")* | Modify innerHTML. |
 | Attribute | *neu.$$("img").attr("src", "new.png")* | Change element attributes. |
 | Traversal | *neu.$$(".child").parent().addClass("parent-active")* | Access the parent element. |
 
