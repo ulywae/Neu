@@ -955,6 +955,7 @@ Here is an example template for creating a plugin.
   // 1. Default Options
   const config = {
     enabled: true,
+    priority: 100, // Default priority plugin execution
     ...options
   };
 
