@@ -1,6 +1,6 @@
 ﻿// ========== Neu Engine Core (Loop, Slots, Runtime) ==========
 /*
-  Bagian ini biasanya berisi:
+  Bagian ini berisi:
   - engine.loop (RAF)
   - engine.pause / resume
   - slot system (normal, keep, destroy, once)
