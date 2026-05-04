@@ -1063,3 +1063,10 @@ Use Neu if you need:
 
 > It stays simple on the surface,  
 > while remaining powerful underneath.
+
+---
+
+**Note:**  
+This is primarily my personal toolkit. If you find it useful, use it however you like. If you don’t, that’s fine too — it still does its job for me.
+
+---
